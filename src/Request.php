@@ -570,6 +570,9 @@ class Request
     protected function request(string $method, string $url, array $options = [])
     {
         if (isset($this->options[$this->bodyFormat])) {
+            if ($this->bodyFormat == 'json' && empty($options)) {
+                $options = new \stdClass();
+            }
             $this->options[$this->bodyFormat] = $options;
         } else {
             $this->options[$this->bodyFormat] = $this->pendingBody;
